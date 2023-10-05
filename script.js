@@ -37,7 +37,7 @@ function counterReducer(state = initialState, action) {
     case DECREMENT:
       return {
         ...state,
-        value: state.value - action.payload,
+        value: Math.max(state.value - action.payload, 0),
       };
     default:
       return state;
@@ -59,10 +59,24 @@ render();
 store.subscribe(render);
 
 //button click listener
-incrementEl.addEventListener("click", () => {
-  store.dispatch(increment(5));
+incrementEl.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") {
+    const incrementValue = parseInt(incrementEl.value, 10);
+    if (!isNaN(incrementValue)) {
+      store.dispatch(increment(incrementValue));
+      render();
+      incrementEl.value = "";
+    }
+  }
 });
 
-decrementEl.addEventListener("click", () => {
-  store.dispatch(decrement(2));
+decrementEl.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") {
+    const decrementValue = parseInt(decrementEl.value, 10);
+    if (!isNaN(decrementValue)) {
+      store.dispatch(decrement(decrementValue));
+      render();
+      decrementEl.value = "";
+    }
+  }
 });
