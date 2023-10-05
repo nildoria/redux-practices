@@ -21,11 +21,6 @@ document.addEventListener("DOMContentLoaded", function () {
       matchElement.remove();
     });
 
-    // reset scores
-    resetScore.addEventListener("click", () => {
-      scoreEl.innerText = 0;
-    });
-
     // initial state
     const initialState = {
       value: 0,
@@ -34,6 +29,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // action types
     const INCREMENT = "increment";
     const DECREMENT = "decrement";
+    const RESET = "reset";
 
     // action creator
     const increment = (value) => {
@@ -46,6 +42,11 @@ document.addEventListener("DOMContentLoaded", function () {
       return {
         type: DECREMENT,
         payload: value,
+      };
+    };
+    const reset = () => {
+      return {
+        type: RESET,
       };
     };
 
@@ -62,6 +63,12 @@ document.addEventListener("DOMContentLoaded", function () {
           return {
             ...state,
             value: Math.max(state.value - action.payload, 0),
+          };
+
+        case RESET:
+          return {
+            ...state,
+            value: 0,
           };
 
         default:
@@ -87,19 +94,24 @@ document.addEventListener("DOMContentLoaded", function () {
     scoreIncForm.addEventListener("submit", (e) => {
       e.preventDefault();
       const scoreIncVal = parseInt(scoreIncEl.value, 10);
-      store.dispatch(increment(scoreIncVal));
-
-      updateScore();
-      scoreIncEl.value = "";
+      if (!isNaN(scoreIncVal)) {
+        store.dispatch(increment(scoreIncVal));
+        scoreIncEl.value = "";
+      }
     });
 
     scoreDecForm.addEventListener("submit", (e) => {
       e.preventDefault();
       const scoreDecVal = parseInt(scoreDecEl.value, 10);
-      store.dispatch(decrement(scoreDecVal));
+      if (!isNaN(scoreDecVal)) {
+        store.dispatch(decrement(scoreDecVal));
+        scoreDecEl.value = "";
+      }
+    });
 
-      updateScore();
-      scoreDecEl.value = "";
+    // reset scores
+    resetScore.addEventListener("click", () => {
+      store.dispatch(reset());
     });
   }
 
