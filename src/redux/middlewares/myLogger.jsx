@@ -10,9 +10,7 @@ const myLogger = (store) => (next) => (action) => {
   console.log(`Upcomming State: ${JSON.stringify(upcommingState)}`);
 
   // pass action
-  setTimeout(() => {
-    return next(action);
-  }, 2000);
+  return next(action);
 };
 
 export default myLogger;
