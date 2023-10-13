@@ -3,13 +3,7 @@ import { booking } from '../redux/booking/actions';
 import { useDispatch } from 'react-redux';
 
 function InputData() {
-  const [bookingData, setBookingData] = useState({
-    from: '',
-    to: '',
-    date: '',
-    guests: '',
-    class: '',
-  });
+  const [bookingData, setBookingData] = useState('');
 
   const dispatch = useDispatch();
 
