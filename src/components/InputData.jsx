@@ -148,7 +148,6 @@ function InputData() {
             <span className="text-sm">Book</span>
           </button>
         </form>
-        {console.log(bookingData)}
       </div>
     </div>
   );

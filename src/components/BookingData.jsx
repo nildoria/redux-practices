@@ -29,8 +29,11 @@ function BookingData() {
               id="lws-previewBooked"
             >
               {bookings.map((booking) => (
-                <tr key={booking.id} className="lws-bookedTable text-black">
-                  {console.log(booking.id)}
+                <tr
+                  key={booking.id}
+                  id={booking.id}
+                  className="lws-bookedTable text-black"
+                >
                   <td className="px-6 py-4">
                     <div className="flex items-center space-x-3">
                       <p className="lws-bookedFrom">{booking.from}</p>
