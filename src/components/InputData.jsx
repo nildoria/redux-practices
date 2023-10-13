@@ -1,8 +1,38 @@
+import { useState } from 'react';
+import { booking } from '../redux/booking/actions';
+import { useDispatch } from 'react-redux';
+
 function InputData() {
+  const [bookingData, setBookingData] = useState({
+    from: '',
+    to: '',
+    date: '',
+    guests: '',
+    class: '',
+  });
+
+  const dispatch = useDispatch();
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    setBookingData((prevBookingData) => ({
+      ...prevBookingData,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    dispatch(booking(bookingData));
+    e.target.reset();
+  };
+
   return (
     <div className="mt-[160px] mx-4 md:mt-[160px] relative">
       <div className="bg-white rounded-md max-w-6xl w-full mx-auto">
-        <form className="first-hero lws-inputform">
+        <form onSubmit={handleSubmit} className="first-hero lws-inputform">
           {/* From */}
           <div className="des-from">
             <p>Destination From</p>
@@ -13,6 +43,7 @@ function InputData() {
                 name="from"
                 id="lws-from"
                 required
+                onChange={handleChange}
               >
                 <option value="" hidden>
                   Please Select
@@ -35,6 +66,7 @@ function InputData() {
                 name="to"
                 id="lws-to"
                 required
+                onChange={handleChange}
               >
                 <option value="" hidden>
                   Please Select
@@ -56,6 +88,7 @@ function InputData() {
               name="date"
               id="lws-date"
               required
+              onChange={handleChange}
             />
           </div>
 
@@ -69,6 +102,7 @@ function InputData() {
                 name="guests"
                 id="lws-guests"
                 required
+                onChange={handleChange}
               >
                 <option value="" hidden>
                   Please Select
@@ -91,6 +125,7 @@ function InputData() {
                 name="ticketClass"
                 id="lws-ticketClass"
                 required
+                onChange={handleChange}
               >
                 <option value="" hidden>
                   Please Select
@@ -119,6 +154,7 @@ function InputData() {
             <span className="text-sm">Book</span>
           </button>
         </form>
+        {console.log(bookingData)}
       </div>
     </div>
   );
