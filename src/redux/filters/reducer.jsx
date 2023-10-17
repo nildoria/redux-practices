@@ -18,6 +18,7 @@ const reducer = (state = initialState, action) => {
             ...state,
             colors: [...state.colors, color],
           };
+
         case 'removed':
           return {
             ...state,
