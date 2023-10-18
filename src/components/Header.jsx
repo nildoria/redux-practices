@@ -31,7 +31,7 @@ function Header() {
     <div>
       <form
         onSubmit={handleSubmit}
-        className="flex items-center bg-gray-100 px-4 py-4 rounded-md"
+        className="flex items-center bg-gray-100 px-4 py-4 rounded-md todo-form-input"
       >
         <img src={noteIMG} className="w-6 h-6" alt="Add todo" />
         <input
